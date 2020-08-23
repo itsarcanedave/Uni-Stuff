@@ -1,0 +1,44 @@
+.red {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 14pt;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #FF0000;
+	text-decoration: none;
+}
+
+.blue {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 14pt;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #0000ff;
+	text-decoration: none;
+}
+.black {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 14pt;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+}
+
+
+.arial {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	font-style: normal;
+	line-height: 20pt;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+}

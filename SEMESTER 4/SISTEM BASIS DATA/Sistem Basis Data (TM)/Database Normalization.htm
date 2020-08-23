@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+<title>Database Normalisation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="Database%20Normalization_files/style.css" rel="stylesheet" type="text/css">
+</head><body>
+<div class="arial">
+<p>Database x</p>
+<p>Lesson Objectives</p>
+<p>After this module you will be able to: </p>
+<ol>
+<li>Remove repeating fields from a database</li>
+<li>Remove partial key dependencies</li>
+<li>Remove non-key or transitive dependencies</li>
+<li>Understand how normalisation eliminates data redundancy</li>
+</ol>
+</div>
+<hr>
+<div class="black">
+<h1>First Normal Form</h1>
+<h2>Screen 1</h2>
+<h3>Audio - </h3>
+</div>
+<div class="red">
+The local community college is enrolling students for the new academic 
+year. Students can enrol for one or more courses. Each course is taught 
+by one teacher. The registrar records student enrolments in a table. <span class="blue">[images\enrol.gif]</span>
+<p>
+<img src="Database%20Normalization_files/enrol.gif">
+</p><p>
+Notice that some students have enrolled for one course <span class="blue">[point]</span>, some for two courses <span class="blue">[point]</span>, and some for three <span class="blue">[point].</span> Can you see which teacher teaches more than one course?
+</p><p>
+The registrar decides that it would be better if she were to record 
+student enrolments in a database. However, she can see that multiple 
+values (where a student has enrolled for more than one course) would 
+cause problems: each cell in a database table should store a single 
+value, not multiple values. To solve this problem she decides to create a
+ database table that includes fields for Course1, Course2 and Course3.
+<span class="blue">[images\enrol0NF.gif]</span>
+</p><p>
+<img src="Database%20Normalization_files/enrol0NF.gif">
+</p><p>
+In the Enrolments table <span class="blue">[point]</span>, you can see that each cell contains a single (or <b>atomic</b>) value. (Please note that the teacher fields have been omitted here for the sake of clarity.)
+</p><p>
+To overcome the problem of multiple values the registrar has used <b>repeating fields</b>: Course1, Course2 and Course3 <span class="blue">[point
+to CourseName1, CourseName2, CourseName3].</span> But there are still problems:
+</p><ul>
+<li>Where a student has enrolled on fewer than three courses there are empty cells. <span class="blue">[point to empty cells]</span> This is wasted storage space in the database.</li>
+<li>There is a lot of redundant data here. For example, the course <b>Business Studies</b> has been typed in several times. <span class="blue">[point to Business Studies]</span></li>
+<li>How would you find all the students who had enrolled on the <b>English</b> course? You would have to search on three fields. <span class="blue">[point to 3 columns]</span></li>
+<li>What would happen if a student wanted to enrol on four (or five, or six) courses? The table would have to be re-designed.</li>
+</ul>
+The problems caused by repeating fields can be resolved by moving the course data (and the teacher data) into a separate table.
+<span class="blue">[images\enrol1NF.gif]</span>
+<p>
+<img src="Database%20Normalization_files/enrol1NF.gif">
+</p><p>
+In the <b>Courses</b> table we choose <b>CourseID</b> to be the primary key. <span class="blue">[point to CourseID column header]</span> In the Enrolments table we choose the combination of <b>StudentID</b> and <b>CourseID</b> to be a composite primary key. <span class="blue">[point to StudentID and CourseID column headers]</span> This ensures that no student is enrolled on the same course more than once. <span class="blue">[point to S1, BS and S1, MM]</span>
+</p><p>
+We can see the relationship between the two tables:
+</p><p>
+<span class="blue">[images\rel1NF.gif]</span>
+</p><p>
+<img src="Database%20Normalization_files/rel1NF.gif">
+</p><p>
+In the <b>Enrolments</b> table <b>CourseID</b> is a foreign key that references <b>CourseID</b> in the <b>Courses</b> table. <span class="blue">[point to CourseID in each table]</span>
+</p><p>
+A database that has tables without multiple values and without repeating fields is said to be in <b>First Normal Form</b>.
+</p></div>
+<div class="black">
+<h3>Text</h3>
+<b>First Normal Form</b><br>
+The first step towards database normalisation consists of eliminating 
+any repeating fields. This is achieved by moving the repeating field 
+data into a separate table. A database that has tables without repeating
+ fields is said to be in <b>First Normal Form (1NF)</b>.
+<p>
+</p><hr>
+<h1>Second Normal Form</h1>
+<h2>Screen 2</h2>
+<h3>Audio - </h3>
+</div>
+<div class="red">
+Let's have another look at the college enrolments database which so far is in First Normal Form.
+<span class="blue">[images\enrol1NF.gif]</span>
+<p>
+<img src="Database%20Normalization_files/enrol1NF.gif">
+</p><p>
+Look at the Enrolments table. <span class="blue">[point]</span> Notice that we have redundant data here: some of the students' names have been typed in more than once. <span class="blue">[point to names]</span>
+</p><p>
+Recall that the primary key for the <b>Enrolments</b> table is the combination of <b>StudentID</b> and <b>CourseID</b>. <span class="blue">[point]</span> Now <b>StudentName</b> is determined only by <b>StudentID</b>, not by <b>CourseID</b>; in other words <b>StudentName</b> depends only on <em>part</em> of the primary key.
+</p><p>
+We can eliminate this partial key dependency by moving the student data into a separate table with <b>StudentID</b> as the primary key:
+</p><p>
+<span class="blue">[images\enrol2NF.gif]</span>
+</p><p>
+<img src="Database%20Normalization_files/enrol2NF.gif">
+</p><p>
+<span class="blue">[point to Students table]</span> Notice that each student's name now appears once only.
+</p><p>
+Let's look at the relationship between the three tables:
+</p><p>
+<span class="blue">[images\rel2NF.gif]</span>
+</p><p>
+<img src="Database%20Normalization_files/rel2NF.gif">
+</p><p>
+In the <b>Enrolments</b> table <b>CourseID</b> is a foreign key that references <b>CourseID</b> in the <b>Courses</b> table, <span class="blue">[point to CourseID in each table]</span> and <b>StudentID</b> is a foreign key that references <b>StudentID</b> in the <b>Students</b> table. <span class="blue">[point to StudentID in each table]</span>
+</p><p>
+Now that the tables have no partial key dependencies the database is said to be in <b>Second Normal Form</b>.
+</p></div>
+<div class="black">
+<h3>Text</h3>
+<b>Second Normal Form</b><br>
+The second step towards database normalisation consists of identifying 
+any fields that depend on only part of a composite primary key. If any 
+such fields are found the data should be moved into a separate table. A 
+database (already in 1NF) that has no partial key dependencies is said 
+to be in <b>Second Normal Form (2NF)</b>.
+<p>
+</p><hr>
+<h1>Third Normal Form</h1>
+<h2>Screen 3</h2>
+<h3>Audio - </h3>
+</div>
+<div class="red">
+Our college enrolments database is now in Second Normal Form. Let's look at the tables again:
+<span class="blue">[images\enrol2NF.gif]</span>
+<p>
+<img src="Database%20Normalization_files/enrol2NF.gif">
+</p><p>
+Look at the Courses table. <span class="blue">[point]</span> Because each course is taught by one teacher only it's true to say that <b>CourseID</b> determines <b>TeacherID</b>. But <b>TeacherName</b> is determined by <b>TeacherID</b> and although we might say that <b>TeacherName</b> is determined <em>transitively</em> by the primary key, <b>CourseID</b>, it is not determined directly by <b>CourseID</b>. Notice also that there is data redundancy in the <b>TeacherName</b> column. <span class="blue">[point to duplicate values in TeacherName column]</span>
+ Any transitive or non-key dependencies should be eliminated by 
+transferring the affected data to another table. We will therefore move 
+the teacher data into a new table: 
+<span class="blue">[images\enrol3NF.gif]</span>
+</p><p>
+<img src="Database%20Normalization_files/enrol3NF.gif">
+</p><p>
+Notice that there is now no data redundancy in any of the tables. <span class="blue">[point to a each table in turn]</span>
+ The only duplicated data are values which are part of the foreign key -
+ primary key relationships. Look at the relationships between all four 
+tables:
+<span class="blue">[images\rel3NF.gif]</span>
+</p><p>
+<img src="Database%20Normalization_files/rel3NF.gif">
+</p><p>
+Now that the tables have no transitive or non-key dependencies the table is said to be in <b>Third Normal Form</b>.
+</p></div>
+<div class="black">
+<h3>Text</h3>
+<b>Third Normal Form</b><br>
+The third step towards database normalisation consists of identifying 
+any fields that do not depend directly on the primary key. If any such 
+fields are found the data should be moved into a separate table. A 
+database (already in 2NF) that has no transitive or non-key key 
+dependencies is said to be in <b>Third Normal Form (3NF)</b>.
+<p>
+Remember: to normalise a database to 3NF ensure that non-key fields depend on the key, the whole key, and nothing but the key!
+</p><p>
+</p><hr>
+<h2>Screen 4</h2>
+<h3>Audio/Text/Audio</h3>
+<b>Summary of Learning Outcomes</b>
+</div>
+<div class="arial">
+In this module you learnt how to:
+<p>
+</p><ol>
+<li>Convert a database to First Normal Form by eliminating repeating fields</li>
+<li>Convert a database in 1NF to Second Normal Form by eliminating partial key dependencies</li>
+<li>Convert a database in 2NF to Third Normal Form by eliminating transitive or non-key dependencies</li>
+<li>Remove data redundancy in the process of normalisation</li>
+</ol>
+</div>
+<hr>
+</body></html>
